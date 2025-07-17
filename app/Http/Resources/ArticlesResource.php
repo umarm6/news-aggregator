@@ -7,17 +7,6 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class ArticlesResource extends JsonResource
 {
-    private mixed $content;
-    private mixed $id;
-    private mixed $title;
-    private mixed $summary;
-    private mixed $published_at;
-    private mixed $author;
-    private mixed $category;
-    private mixed $image_url;
-    private mixed $source;
-    private mixed $url;
-
     /**
      * Transform the resource into an array.
      *
