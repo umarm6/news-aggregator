@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use PHPUnit\TextUI\Configuration\Source;
 
 class Articles extends Model
 {
@@ -29,6 +28,6 @@ class Articles extends Model
 
     public function source(): BelongsTo
     {
-        return $this->belongsTo(Source::class);
+        return $this->belongsTo(Sources::class);
     }
 }

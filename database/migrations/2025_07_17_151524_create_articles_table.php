@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->text('content')->nullable();
-            $table->text('summary')->nullable();
+            $table->string('title')->collation('utf8mb4_unicode_ci')->nullable();
+            $table->longText('content')->nullable()->collation('utf8mb4_unicode_ci')->nullable();
+            $table->longText('summary')->nullable()->collation('utf8mb4_unicode_ci')->nullable();
             $table->string('url')->unique();
             $table->string('external_id')->nullable();
             $table->datetime('published_at');

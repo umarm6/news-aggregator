@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Sources;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class SourceSeeder extends Seeder
@@ -14,7 +13,7 @@ class SourceSeeder extends Seeder
     public function run(): void
     {
 
-        Sources::create([
+        Sources::updateOrCreate([
             'name' => 'NewsAPI',
             'api_endpoint' => 'https://newsapi.org/v2/',
             'api_key_required' => true,
@@ -22,7 +21,7 @@ class SourceSeeder extends Seeder
             'is_active' => true,
         ]);
 
-        Sources::create([
+        Sources::updateOrCreate([
             'name' => 'Guardian',
             'api_endpoint' => 'https://content.guardianapis.com/',
             'api_key_required' => true,

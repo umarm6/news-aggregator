@@ -24,3 +24,4 @@ Homestead.yaml
 Thumbs.db
 .composer
 /bootstrap/cache/*
+.bash_history
