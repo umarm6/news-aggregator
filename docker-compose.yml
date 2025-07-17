@@ -1,0 +1,66 @@
+services:
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: news_aggregator_app
+        restart: unless-stopped
+        working_dir: /var/www
+        ports:
+            - "8080:8000"
+        volumes:
+            - ./:/var/www
+            - ./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+        networks:
+            - news-network
+        depends_on:
+            - db
+            - redis
+        command: php artisan serve --host=0.0.0.0 --port=8000
+
+    db:
+        image: mysql:8.0
+        container_name: news_aggregator_db
+        restart: unless-stopped
+        environment:
+            MYSQL_DATABASE: news_aggregator
+            MYSQL_ROOT_PASSWORD: root_password
+            MYSQL_PASSWORD: password
+            MYSQL_USER: news_user
+        volumes:
+            - dbdata:/var/lib/mysql
+        networks:
+            - news-network
+
+    redis:
+        image: redis:7-alpine
+        container_name: news_aggregator_redis
+        restart: unless-stopped
+        volumes:
+            - redisdata:/data
+        networks:
+            - news-network
+
+    scheduler:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: news_aggregator_scheduler
+        restart: unless-stopped
+        working_dir: /var/www
+        volumes:
+            - ./:/var/www
+        command: php artisan schedule:work
+        networks:
+            - news-network
+        depends_on:
+            - db
+            - redis
+
+networks:
+    news-network:
+        driver: bridge
+
+volumes:
+    dbdata:
+    redisdata:
