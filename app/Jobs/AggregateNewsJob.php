@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\Models\Sources;
 use App\Services\GuardianApiService;
+use App\Services\NewsApiService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -64,6 +65,7 @@ class AggregateNewsJob implements ShouldQueue
     {
         return match (strtolower($sources->name)) {
              'guardian' => new GuardianApiService($sources),
+             'newsapi' => new NewsApiService($sources),
             default => null,
         };
     }

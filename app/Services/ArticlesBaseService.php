@@ -40,6 +40,7 @@ abstract class ArticlesBaseService
 
             return [];
         } catch (\Exception $e) {
+
             Log::error("API request exception for {$this->sources->name}", [
                 'url' => $url,
                 'error' => $e->getMessage()
