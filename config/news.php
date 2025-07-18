@@ -12,5 +12,11 @@ return [
             'base_url' => 'https://content.guardianapis.com/',
             'rate_limit' => 12000,
         ],
+
+        'nytimes' => [
+            'api_key' => env('NYTIMES_API_KEY'),
+            'base_url' => 'https://api.nytimes.com/',
+            'rate_limit' => 4000, // 4000 requests per day
+        ],
     ],
 ];

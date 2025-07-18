@@ -29,5 +29,14 @@ class SourceSeeder extends Seeder
             'is_active' => true,
         ]);
 
+        Sources::create([
+            'name' => 'NYTimes',
+            'api_endpoint' => 'https://api.nytimes.com/',
+            'api_key_required' => true,
+            'rate_limit' => 4000,
+            'is_active' => true,
+        ]);
+
+
     }
 }
