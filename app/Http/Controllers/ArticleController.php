@@ -1,5 +1,4 @@
 <?php
-// app/Http/Controllers/Api/ArticleController.php
 
 namespace App\Http\Controllers;
 
