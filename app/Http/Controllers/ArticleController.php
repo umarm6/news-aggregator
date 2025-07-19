@@ -17,7 +17,7 @@ class ArticleController extends Controller
         $cacheKey = 'articles:' . md5(serialize($request->validated()));
 
         $articles = Cache::remember($cacheKey, 300, function () use ($request) {
-            return $this->buildQuery($request)->paginate($request->get('per_page', 100));
+             return $this->buildQuery($request)->paginate($request->get('per_page', 100));
         });
 
          return response()->json([
@@ -63,8 +63,9 @@ class ArticleController extends Controller
         }
 
         if ($request->has('from') || $request->has('from') &&  $request->has('to')) {
-             $to = new Carbon($request->to);
-             $query->byDateRange("$request->from 00:00:00" , $to->toDateTimeString());
+            $to = new Carbon($request->to);
+            $toDate = $to->toDateString();
+            $query->byDateRange($request->get('from'), $toDate);
         }
 
         return $query;

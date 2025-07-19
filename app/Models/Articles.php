@@ -60,6 +60,6 @@ class Articles extends Model
 
     public function scopeByDateRange($query, $from, $to)
     {
-          return $query->whereBetween('published_at', [$from, $to]);
+          return $query->where('published_at','>=',$from)->where('published_at','<=',"$to 23:59:59");
     }
 }
