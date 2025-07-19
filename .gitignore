@@ -25,3 +25,5 @@ Thumbs.db
 .composer
 /bootstrap/cache/*
 .bash_history
+/storage/db-data-test
+/storage/db-data
