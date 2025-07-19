@@ -30,4 +30,36 @@ class Articles extends Model
     {
         return $this->belongsTo(Sources::class);
     }
+
+
+    public function scopeSearch($query, $search)
+    {
+        return $query->where(function ($q) use ($search) {
+            $q->where('title', 'like', "%{$search}%")
+                ->orWhere('content', 'like', "%{$search}%")
+                ->orWhere('summary', 'like', "%{$search}%");
+        });
+    }
+
+    public function scopeByCategory($query, $category)
+    {
+        return $query->where('category', $category);
+    }
+
+    public function scopeBySource($query, $source)
+    {
+        return $query->whereHas('source', function ($q) use ($source) {
+            $q->where('name', $source);
+        });
+    }
+
+    public function scopeByAuthor($query, $author)
+    {
+        return $query->where('author', $author);
+    }
+
+    public function scopeByDateRange($query, $from, $to)
+    {
+          return $query->whereBetween('published_at', [$from, $to]);
+    }
 }
