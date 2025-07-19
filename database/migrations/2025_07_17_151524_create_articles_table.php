@@ -16,12 +16,12 @@ return new class extends Migration
             $table->string('title')->collation('utf8mb4_unicode_ci')->nullable();
             $table->longText('content')->nullable()->collation('utf8mb4_unicode_ci')->nullable();
             $table->longText('summary')->nullable()->collation('utf8mb4_unicode_ci')->nullable();
-            $table->string('url')->unique();
+            $table->string('url',750)->unique(); // url can be long sometime
             $table->string('external_id')->nullable();
             $table->datetime('published_at');
             $table->string('author')->nullable();
             $table->string('category')->nullable();
-            $table->string('image_url')->nullable();
+            $table->longText('image_url')->nullable();
             $table->foreignId('source_id')->constrained()->onDelete('cascade');
             $table->timestamps();
 

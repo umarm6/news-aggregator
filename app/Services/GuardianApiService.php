@@ -9,7 +9,8 @@ class GuardianApiService extends ArticlesBaseService
     public function fetchArticles(int $limit = 100): array
     {
         $apiKey = config('news.sources.guardian.api_key');
-        $url = 'https://content.guardianapis.com/search';
+        $apiUrl= config('news.sources.guardian.base_url');
+        $url = "$apiUrl/search";
 
         $params = [
             'api-key' => $apiKey,

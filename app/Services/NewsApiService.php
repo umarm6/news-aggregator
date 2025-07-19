@@ -6,10 +6,13 @@ use Carbon\Carbon;
 
 class NewsApiService extends ArticlesBaseService
 {
+
+
     public function fetchArticles(int $limit = 100 , $q = 'technology OR business OR sports OR health' ): array
     {
         $apiKey = config('news.sources.newsapi.api_key');
-        $url = 'https://newsapi.org/v2/everything';
+        $apiUrl = config('news.sources.newsapi.base_url');
+        $url = "$apiUrl/everything";
 
         $params = [
             'apiKey' => $apiKey,

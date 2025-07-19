@@ -3,10 +3,23 @@
 
 namespace App\Services;
 
+use App\Models\Sources;
 use Carbon\Carbon;
 
 class NewYorkTimesApiService extends ArticlesBaseService
 {
+
+
+    protected string $apiKey;
+    protected string $apiURL;
+
+    public function __construct(Sources $sources)
+    {
+        parent::__construct($sources);
+
+        $this->apiKey =  config('news.sources.nytimes.api_key');
+        $this->apiURL =  config('news.sources.nytimes.base_url');
+    }
 
     private static array $characterReplacements = [
         '–' => '-', '—' => '-',  '…' => '...', '•' => '*',
@@ -16,19 +29,17 @@ class NewYorkTimesApiService extends ArticlesBaseService
 
     public function fetchArticles(int $limit = 100): array
     {
-        $apiKey = config('news.sources.nytimes.api_key');
-
         // NYT API has different endpoints, we'll use the Most Popular and Article Search APIs
         $articles = [];
 
         // Fetch from Most Popular API (last 7 days)
-        $popularArticles = $this->fetchMostPopularArticles($apiKey, min($limit, 20));
+        $popularArticles = $this->fetchMostPopularArticles($this->apiKey, min($limit, 50));
         $articles = array_merge($articles, $popularArticles);
 
         // Fetch from Article Search API for more recent articles
         if (count($articles) < $limit) {
             $remaining = $limit - count($articles);
-            $searchArticles = $this->fetchSearchArticles($apiKey, $remaining);
+            $searchArticles = $this->fetchSearchArticles($this->apiKey, $remaining);
             $articles = array_merge($articles, $searchArticles);
         }
 
@@ -37,7 +48,7 @@ class NewYorkTimesApiService extends ArticlesBaseService
 
     private function fetchMostPopularArticles(string $apiKey, int $limit): array
     {
-        $url = 'https://api.nytimes.com/svc/mostpopular/v2/viewed/7.json';
+        $url = "$this->apiURL/svc/mostpopular/v2/viewed/7.json";
 
         $params = [
             'api-key' => $apiKey,
@@ -53,7 +64,7 @@ class NewYorkTimesApiService extends ArticlesBaseService
 
     private function fetchSearchArticles(string $apiKey, int $limit): array
     {
-        $url = 'https://api.nytimes.com/svc/search/v2/articlesearch.json';
+        $url = "$this->apiURL/svc/search/v2/articlesearch.json";
 
         $params = [
             'api-key' => $apiKey,
@@ -120,7 +131,6 @@ class NewYorkTimesApiService extends ArticlesBaseService
 
         // Get main image from media
         $imageUrl = $this->extractPopularImageUrl($rawArticle['media'] ?? []);
-
         return [
             'title' => $title,
             'content' => $abstract, // Most Popular API provides abstract as content
@@ -192,8 +202,8 @@ class NewYorkTimesApiService extends ArticlesBaseService
                     return $largestImage['url'];
                 }
             }
-        }
 
+        }
         return null;
     }
 
