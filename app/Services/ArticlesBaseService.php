@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Articles;
 use App\Models\Sources;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
@@ -66,6 +67,9 @@ abstract class ArticlesBaseService
 
                 if ($article->wasRecentlyCreated) {
                     $stored++;
+
+                    // Clear related caches when new articles are added
+                    $this->clearRelatedCaches();
                 }
             }
         }
@@ -78,5 +82,16 @@ abstract class ArticlesBaseService
          return !empty($article['title']) &&
             !empty($article['url']) &&
             !empty($article['published_at']);
+    }
+
+    protected function clearRelatedCaches(): void
+    {
+        Cache::forget('categories:all');
+        Cache::forget('sources:all');
+        Cache::forget('authors:all');
+        Cache::forget('articles:trending');
+        Cache::forget('articles:popular');
+        Cache::forget('articles:all');
+
     }
 }

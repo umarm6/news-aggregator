@@ -14,9 +14,8 @@ class ArticleController extends Controller
 {
     public function index(ArticlesSearchRequest $request): JsonResponse
     {
-        $cacheKey = 'articles:' . md5(serialize($request->validated()));
 
-        $articles = Cache::remember($cacheKey, 300, function () use ($request) {
+        $articles = Cache::remember('articles:all', 300, function () use ($request) {
              return $this->buildQuery($request)->paginate($request->get('per_page', 100));
         });
 
