@@ -19,8 +19,8 @@ A modern, scalable news aggregation platform built with Laravel that collects, p
 - **Laravel**: >= 12.0
 - **MySQL**: >= 8.2
 - **Redis**: >= 7.0
-- **Docker**: >= 24.0 (optional)
-- **Docker Compose**: >= 2.0 (optional)
+- **Docker**: >= 26.0
+- **Docker Compose**: >= 2.3
 
 ## 🛠 Installation
 
@@ -57,9 +57,17 @@ A modern, scalable news aggregation platform built with Laravel that collects, p
    docker-compose exec app php artisan news:aggregate
    
    to run specific soruce
-   docker-compose exec app php artisan news:aggregate --source=Guardian  && php artisan queue:work
+   docker-compose exec app php artisan news:aggregate --source=Guardian
  
    ```
+   
+6. **Start Queue locally execute**
+   ```bash 
+   docker-compose exec app php artisan queue:work
+   ```
+
+##  System Design 
+  <img src="https://github.com/umarm6/news-aggregator/blob/6b4d1fd07bca75878fc399b30932d507f249359c/architecture-diagram.png?raw=true" width=60%>
 
 ## 📚 API Documentation
 
@@ -179,6 +187,9 @@ docker-compose exec app tail -f storage/logs/laravel.log
 ### Useful Commands
 
 ```bash
+# docker app bash
+docker exec -it news_aggregator_app bash
+
 # Clear Cache
 php artisan cache:clear
 
@@ -186,7 +197,7 @@ php artisan cache:clear
 php artisan news:aggregate && php artisan queue:work
 
 # Aggregate from specific source
-php artisan news:aggregate --source=Guardian  && php artisan queue:work
+php artisan news:aggregate --source=Guardian && php artisan queue:work
 
 # Clear all caches
 php artisan optimize:clear
