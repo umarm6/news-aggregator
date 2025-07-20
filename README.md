@@ -45,25 +45,26 @@ A modern, scalable news aggregation platform built with Laravel that collects, p
 
 5. **Install dependencies and setup application**
    ```bash
-   docker-compose exec app composer install
-   docker-compose exec app php artisan key:generate
-   docker-compose exec app php artisan migrate
-   docker-compose exec app php artisan db:seed
+   docker exec -it news_aggregator_app bash
+   composer install
+   php artisan key:generate
+   php artisan migrate
+   php artisan db:seed
    ```
 
 6. **Start news aggregation**
    ```bash
    to run all sources
-   docker-compose exec app php artisan news:aggregate
+   php artisan news:aggregate
    
-   to run specific soruce
-   docker-compose exec app php artisan news:aggregate --source=Guardian
+   to run specific soruce 
+   php artisan news:aggregate --source=Guardian
  
    ```
    
 6. **Start Queue locally execute**
-   ```bash 
-   docker-compose exec app php artisan queue:work
+   ```bash
+   php artisan queue:work
    ```
 
 ##  System Design 
@@ -180,6 +181,7 @@ Key tables:
 ## 🔧 Development
 
 ### Running Tests
+- **if you are already in news_aggregator_app container then exit from it and run below codes**
 ```bash
 # Run all tests in (in root folder)
 php artisan test
