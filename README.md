@@ -233,7 +233,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Background job processing
 - UTF-8 character support
 
----
-## 🏷 Changelog
-Author - Mohamed Umar
-Built with ❤️ using Laravel, Docker, and modern PHP practices.
+--- 
+##  Author
+Mohamed Umar
