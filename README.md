@@ -67,7 +67,7 @@ A modern, scalable news aggregation platform built with Laravel that collects, p
    ```
 
 ##  System Design 
-  <img src="https://github.com/umarm6/news-aggregator/blob/6b4d1fd07bca75878fc399b30932d507f249359c/architecture-diagram.png?raw=true" width=60%>
+  <img src="https://github.com/umarm6/news-aggregator/blob/6b4d1fd07bca75878fc399b30932d507f249359c/architecture-diagram.png?raw=true" width=80%>
 
 ## 📚 API Documentation
 
