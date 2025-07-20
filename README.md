@@ -1,61 +1,219 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Laravel News Aggregator
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A modern, scalable news aggregation platform built with Laravel that collects, processes, and serves news articles from multiple sources through a RESTful API. The application features intelligent caching, background processing, and comprehensive search capabilities.
 
-## About Laravel
+## 🚀 Features
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- **Multi-Source News Aggregation**: Integrates with NewsAPI, The Guardian, and New York Times APIs
+- **RESTful API**: Clean, well-documented API endpoints with JSON responses
+- **Advanced Caching**: Multi-layer caching strategy using Redis for optimal performance
+- **Background Processing**: Asynchronous news fetching and processing with Laravel Queues
+- **Full-Text Search**: Powerful search capabilities across articles, categories, and authors
+- **Docker Support**: Complete containerization with Docker and Docker Compose
+- **Rate Limiting**: Intelligent rate limiting for external APIs and application endpoints
+- **UTF-8 Support**: Proper handling of international characters and special symbols
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 📋 Requirements
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- **PHP**: >= 8.2
+- **Laravel**: >= 12.0
+- **MySQL**: >= 8.2
+- **Redis**: >= 7.0
+- **Docker**: >= 24.0 (optional)
+- **Docker Compose**: >= 2.0 (optional)
 
-## Learning Laravel
+## 🛠 Installation
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Using Docker (Recommended)
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/umarm6/news-aggregator.git
+   cd news-aggregator
+   ```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+2. **Copy environment file**
+   ```bash
+   cp .env.example .env
+   ```
 
-## Laravel Sponsors
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+4. **Build and start containers**
+   ```bash
+   docker-compose up -d --build
+   ```
 
-### Premium Partners
+5. **Install dependencies and setup application**
+   ```bash
+   docker-compose exec app composer install
+   docker-compose exec app php artisan key:generate
+   docker-compose exec app php artisan migrate
+   docker-compose exec app php artisan db:seed
+   ```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+6. **Start news aggregation**
+   ```bash
+   to run all sources
+   docker-compose exec app php artisan news:aggregate
+   
+   to run specific soruce
+   docker-compose exec app php artisan news:aggregate --source=Guardian  && php artisan queue:work
+ 
+   ```
 
-## Contributing
+## 📚 API Documentation
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Base URL
+```
+http://localhost:8080/api/v1
+```
 
-## Code of Conduct
+### Authentication
+Currently, no authentication is required. Rate limiting is applied per IP address.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### Endpoints
 
-## Security Vulnerabilities
+#### Articles
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+**Get Articles**
+```http
+GET /api/v1/articles
+```
 
-## License
+Query Parameters:
+- `q` (string): Search query
+- `category` (string): Filter by category
+- `source` (string): Filter by source name
+- `author` (string): Filter by author
+- `from` (date): Start date (Y-m-d format)
+- `to` (date): End date (Y-m-d format)
+- `page` (integer): Page number for pagination
+- `per_page` (integer): Items per page (max 100)
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+**Get Single Article**
+```http
+GET /api/v1/articles/{id}
+```
+
+#### Categories
+
+**Get Categories**
+```http
+GET /api/v1/categories
+```
+
+#### Sources
+
+**Get Sources**
+```http
+GET /api/v1/sources
+```
+
+### Response Format
+
+All API responses follow this structure:
+```json
+{
+    "success": boolean,
+    "data": mixed,
+    "message": "string (optional)",
+    "errors": "object (on validation errors)"
+}
+```
+
+## 🏗 Architecture Overview
+
+### Service Architecture
+
+The application follows a service-oriented architecture:
+
+1. **News Services**: Handle external API integration
+2. **Cache Service**: Manages multi-layer caching
+4. **Aggregation Jobs**: Process news in background
+
+### Database Schema
+
+Key tables:
+- `articles`: Stores news articles with full-text search indexes
+- `sources`: Manages news source configurations
+- `failed_jobs`: Tracks failed background jobs
+- `cache`: cache data
+
+## ⚡ Performance Features
+
+### Caching Strategy
+
+1. **API Response Cache**: 10 minutes for external API calls
+2. **Database Query Cache**: 5-30 minutes for heavy queries
+3. **Application Cache**: Categories, sources, trending articles
+
+### Background Processing
+
+- **News Aggregation**: Scheduled every 15 minutes
+- **Cache Warming**: Automated cache pre-loading
+- **Rate Limit Enforcement**: Per-source API limits
+
+### Database Optimization
+
+- **Indexes**: Strategic indexes on filter columns
+- **Full-Text Search**: MySQL full-text indexes
+- **Query Optimization**: Eager loading, select optimization
+
+## 🔧 Development
+
+### Running Tests
+```bash
+# Run all tests in (in root folder)
+php artisan test
+
+# Run specific test suite 
+php artisan test --testsuite=Feature
+```
+
+### Debugging
+```bash
+# View logs
+docker-compose exec app tail -f storage/logs/laravel.log
+```
+### Useful Commands
+
+```bash
+# Clear Cache
+php artisan cache:clear
+
+# Aggregate news from all sources
+php artisan news:aggregate && php artisan queue:work
+
+# Aggregate from specific source
+php artisan news:aggregate --source=Guardian  && php artisan queue:work
+
+# Clear all caches
+php artisan optimize:clear
+``` 
+
+### Coding Standards
+
+- Follow PSR-12 coding standards
+- Write comprehensive tests
+- Document all public methods
+- Use meaningful commit messages
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🏷 Changelog
+
+### v1.0.0
+- Initial release with NewsAPI, Guardian, and NYT integration
+- Docker containerization
+- Multi-layer caching implementation
+- RESTful API with comprehensive filtering
+- Background job processing
+- UTF-8 character support
+
+---
+## 🏷 Changelog
+Author - Mohamed Umar
+Built with ❤️ using Laravel, Docker, and modern PHP practices.
