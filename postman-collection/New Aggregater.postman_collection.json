@@ -1,0 +1,220 @@
+{
+	"info": {
+		"_postman_id": "46a632c7-0a50-45d3-b578-ff26cba6101a",
+		"name": "News Aggregator",
+		"description": "API collection for new aggregatrer",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "37385444"
+	},
+	"item": [
+		{
+			"name": "Get All Articles",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/articles",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"articles"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "per_page",
+							"value": "10",
+							"disabled": true
+						},
+						{
+							"key": "source",
+							"value": "Guardian",
+							"description": "get it from sources API",
+							"disabled": true
+						},
+						{
+							"key": "from",
+							"value": "2025-07-20",
+							"disabled": true
+						},
+						{
+							"key": "to",
+							"value": "2025-07-20",
+							"disabled": true
+						},
+						{
+							"key": "author",
+							"value": "Unknown",
+							"description": "get it from authors API",
+							"disabled": true
+						},
+						{
+							"key": "q",
+							"value": "Trump news at a glance: ",
+							"description": "any text from title,content,summary",
+							"disabled": true
+						},
+						{
+							"key": "category",
+							"value": "sports",
+							"description": "get it from categories API",
+							"disabled": true
+						}
+					]
+				},
+				"description": "Get all articles (public access)"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Single Article",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/articles/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"articles",
+						"1"
+					]
+				},
+				"description": "Get single article by ID (public access)"
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Categories",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/categories",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"categories"
+					]
+				},
+				"description": "Get all categories (public access)"
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Sources",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/sources",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"sources"
+					]
+				},
+				"description": "Get all categories (public access)"
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Authors",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/authors",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"authors"
+					]
+				},
+				"description": "Get all categories (public access)"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
