@@ -71,9 +71,18 @@ A modern, scalable news aggregation platform built with Laravel that collects, p
 
 ## 📚 API Documentation
 
+
+### 📁 POSTMAN Collection
+```
+you can find out postman collection on root and import in to your POSTMAN
+folder name -  **postman-collection**
+```
+
+
+
 ### Base URL
 ```
-http://localhost:8080/api/v1
+http://localhost:8080
 ```
 
 ### Authentication
