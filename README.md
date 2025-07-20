@@ -75,10 +75,8 @@ A modern, scalable news aggregation platform built with Laravel that collects, p
 ### 📁 POSTMAN Collection
 ```
 you can find out postman collection on root and import in to your POSTMAN
-folder name -  **postman-collection**
+folder name:  postman-collection 
 ```
-
-
 
 ### Base URL
 ```
@@ -132,8 +130,8 @@ GET /api/v1/sources
 All API responses follow this structure:
 ```json
 {
-    "success": boolean,
-    "data": mixed,
+    "success": "boolean",
+    "data": "mixed",
     "message": "string (optional)",
     "errors": "object (on validation errors)"
 }
