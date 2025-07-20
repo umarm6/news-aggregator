@@ -10,7 +10,7 @@ class SourceSeeder extends Seeder
     /**
      * Run the database seeds.
      */
-    public function run(): void
+    public function run()
     {
 
         Sources::updateOrCreate([
@@ -29,7 +29,7 @@ class SourceSeeder extends Seeder
             'is_active' => true,
         ]);
 
-        Sources::create([
+        Sources::updateOrCreate([
             'name' => 'NYTimes',
             'api_endpoint' => 'https://api.nytimes.com/',
             'api_key_required' => true,
