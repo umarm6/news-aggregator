@@ -90,7 +90,7 @@ Currently, no authentication is required. Rate limiting is applied per IP addres
 
 #### Articles
 
-**Get Articles**
+**Get All Articles**
 ```http
 GET /api/v1/articles
 ```
@@ -111,19 +111,21 @@ Query Parameters:
 GET /api/v1/articles/{id}
 ```
 
-#### Categories
+**Get All Sources**
+```http
+GET /api/v1/sources
+```
 
-**Get Categories**
+**Get All Categories**
 ```http
 GET /api/v1/categories
 ```
 
-#### Sources
-
-**Get Sources**
+**Get All Authors**
 ```http
-GET /api/v1/sources
+GET /api/v1/authors
 ```
+
 
 ### Response Format
 
